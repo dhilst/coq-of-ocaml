@@ -3,13 +3,13 @@ Require Import CoqOfOCaml.Settings.
 
 Definition n : int := 12.
 
-Definition c1 : ascii := "a" % char.
+Definition c1 : char := "a" % char.
 
-Definition c2 : ascii := "010" % char.
+Definition c2 : char := "010" % char.
 
-Definition c3 : ascii := "009" % char.
+Definition c3 : char := "009" % char.
 
-Definition c4 : ascii := """" % char.
+Definition c4 : char := """" % char.
 
 Definition s : string := "hi\n\t:)\""".
 
