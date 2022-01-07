@@ -71,7 +71,6 @@ module Hash = Hashtbl.Make (struct
   type t = Types.signature
 
   let equal = ( == )
-
   let hash = Hashtbl.hash
 end)
 

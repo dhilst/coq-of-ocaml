@@ -152,7 +152,8 @@ module Value = struct
                            ^^ !^":="
                            ^^ separate space
                                 ((!^"'" ^-^ Name.to_coq name)
-                                 :: List.map Name.to_coq (List.map fst typ_vars))
+                                :: List.map Name.to_coq (List.map fst typ_vars)
+                                )
                            ^-^ !^".")));
               ])
 end
@@ -184,7 +185,7 @@ let wrap_documentation (items : t list Monad.t) : t list Monad.t =
   match documentation with
   | None -> items
   | Some documentation ->
-      let* items = items in
+      let* items in
       return [ Documentation (documentation, items) ]
 
 let top_level_evaluation (e : expression) : t list Monad.t =
@@ -320,6 +321,7 @@ let rec of_structure (structure : structure) : t list Monad.t =
                                   cstr_res = { desc = Tconstr (path, _, _); _ };
                                   _;
                                 },
+                                _,
                                 _ );
                           _;
                         };
@@ -654,13 +656,12 @@ let rec to_coq (fargs : int option) (defs : t list) : SmartPrint.t =
           ^^ nest
                (separate space
                   (MixedPath.to_coq mixed_path
-                   ::
-                   (typ_vars
-                   |> List.map (fun typ_var ->
-                          nest
-                            (parens
-                               (Name.to_coq typ_var ^^ !^":="
-                              ^^ Name.to_coq typ_var))))))
+                  :: (typ_vars
+                     |> List.map (fun typ_var ->
+                            nest
+                              (parens
+                                 (Name.to_coq typ_var ^^ !^":="
+                                ^^ Name.to_coq typ_var))))))
           ^-^ !^".")
     | ModuleSynonym (name, reference) ->
         nest
