@@ -155,3 +155,4 @@ let rec is_module_typ_first_class (module_typ : Types.module_type)
               ^ "We use the concept of shape to find the name of a signature \
                  for Coq."))
     | Mty_functor _ -> return (Not_found "This is a functor type")
+    | Mty_for_hole -> return (Not_found "Module type hole")
